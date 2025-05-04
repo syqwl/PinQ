@@ -18,7 +18,7 @@ public interface SchoolDataMapper extends BaseMapper<School> {
      * @return
      */
     @Select("<script>select * from school\n" +
-            "        <where> schId=#{schId}"+
+            "        <where> sch_id=#{schId}"+
                     "</where></script>")
     List<School> getSchoolDataList(int schId);
 }

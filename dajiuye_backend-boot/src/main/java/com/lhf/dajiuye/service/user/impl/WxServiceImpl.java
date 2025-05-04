@@ -92,7 +92,9 @@ MyUserService userService;
         String url="https://"+wxConfig.getUrl()+"?appid="+wxConfig.getAppid()+"&secret="+wxConfig.getSecret()+"&js_code="+code+"&grant_type="+wxConfig.getGrantType();
         ResponseEntity<String> entity = restTemplate.getForEntity(url,String.class);
         HashMap map = JSON.parseObject(entity.getBody(), HashMap.class);
+        System.out.println("map是"+map);
         String openId=(String) map.get("openid");
+        System.out.println("此时得到的openId"+openId);
         return openId;
     }
 
@@ -100,6 +102,7 @@ MyUserService userService;
     public OpenIdTokenDto getOpenIdToken(String code){
         // 获取openId
         String openId = getOpenIdByCode(code);
+        System.out.println("openId是"+openId);
         // 根据openId生成token
         return OpenIdTokenDto.builder().
                 openId(openId)

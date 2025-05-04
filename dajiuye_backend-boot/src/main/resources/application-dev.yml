@@ -2,18 +2,18 @@ spring:
   #MySQL配置
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://${host2}:3406/dajiuye?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/pinq?useSSL=false&allowPublicKeyRetrieval=true
     username: root
-    password: root
+    password: syqSYQ200631
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
 # 微信小程序的appid和secret
 wx:
   url: api.weixin.qq.com/sns/jscode2session
-  appid: wxffd8f31f5bb7f05f
-  secret: baa7959cdd43af09c9c5bcb0d3e426ea
+  appid: wx57771d85a6b2e250
+  secret: cac28b9d4aa6fb46702c72dc6ee2305c
   grant_type: authorization_code
 
 # 发送微信http请求的

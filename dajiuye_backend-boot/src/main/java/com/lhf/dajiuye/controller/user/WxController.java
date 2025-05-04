@@ -46,6 +46,7 @@ public class WxController {
     @GetMapping("/openid")
     @ResponseBody
     public R openIdToken(String code){
+        System.out.println("code是"+code);
         return R.ok().setData(wxService.getOpenIdToken(code));
     }
 

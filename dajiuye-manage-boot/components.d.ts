@@ -50,6 +50,5 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     Sidebar: typeof import('./src/components/sidebar.vue')['default']
     Tags: typeof import('./src/components/tags.vue')['default']
-    WEditor: typeof import('./src/components/WEditor.vue')['default']
   }
 }

@@ -30,7 +30,7 @@ public interface UserDataMapper extends BaseMapper<User> {
 
     @Insert("insert into user(" +
             "id,user_name,user_password,gender,birthday,temp_deliver_time,last_login_ip,com_id,nick_name," +
-            "mobile,avatar,open_id,session_key,user_status,isHr,resume,city,province,university,qualification,graduation_year,honor,temp_job_name) values(" +
+            "mobile,avatar,open_id,session_key,user_status,is_hr,resume,city,province,university,qualification,graduation_year,honor,temp_job_name) values(" +
             "#{id},#{userName},#{userPassword},#{gender},#{birthday},#{tempDeliverTime},#{lastLoginIp},#{comId},#{nickName}," +
             "#{mobile},#{avatar},#{openId},#{sessionKey},#{userStatus},#{isHr},#{resume},#{city},#{province},#{university},#{qualification},#{graduationYear},#{honor},#{tempJobName})")
     @Options(useGeneratedKeys = true,keyProperty ="id",keyColumn = "id")

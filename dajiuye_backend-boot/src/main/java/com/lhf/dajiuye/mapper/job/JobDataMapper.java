@@ -16,7 +16,7 @@ public interface JobDataMapper extends BaseMapper<Job> {
      *
      * @param job
      */
-    @Insert("insert into job(job_id,job_name,job_industry,job_place,job_edu,job_details,job_salary,email,job_type,job_com_id,job_release_time,job_author_id) values(" +
+    @Insert("insert into job(job_id,job_name,job_type,job_place,job_edu,job_responsibilities,job_salary,email,job_type,job_com_id,job_release_time,job_author_id) values(" +
             "#{jobId},#{jobName},#{jobIndustry},#{jobPlace},#{jobEdu},#{jobDetails},#{jobSalary},#{email},#{jobType},#{jobComId},#{jobReleaseTime},#{jobAuthorId})")
     void saveJob(Job job);
 
@@ -57,7 +57,7 @@ public interface JobDataMapper extends BaseMapper<Job> {
      * @return
      */
     @Select("<script>select * from job j,company c,user u " +
-            "where j.jobComId=c.comId and j.job_author_id=u.id and jobSid=#{cid} <if test=\"-1!=jobType\">and jobType=#{jobType} </if> " +
+            "where j.job_com_id=c.com_id and j.job_author_id=u.id and job_sid=#{cid} <if test=\"-1!=jobType\">and jobType=#{jobType} </if> " +
             "order by jobReleaseTime desc limit #{pageNum},#{pageSize}</script>")
     @ResultMap("com.lhf.dajiuye.mapper.job.JobDataMapper.jobMap")
     // 引用映射
@@ -75,8 +75,8 @@ public interface JobDataMapper extends BaseMapper<Job> {
      * @return
      */
     @Select("<script>select * from job j " +
-            "where j.jobComId=#{comId} " +
-            "order by jobReleaseTime desc</script>")
+            "where j.job_com_id=#{comId} " +
+            "order by job_release_time desc</script>")
     @ResultMap("com.lhf.dajiuye.mapper.job.JobDataMapper.jobMap")
     // 引用映射
     List<Job> getJobsByComId(String comId);
@@ -88,7 +88,7 @@ public interface JobDataMapper extends BaseMapper<Job> {
      * @return
      */
     @Select("select * from job j,company c,user u " +
-            "where j.jobComId=c.comId and j.job_author_id=u.id  and jobId=#{jobId} limit 1")
+            "where j.job_com_id=c.com_id and j.job_author_id=u.id  and job_id=#{jobId} limit 1")
     @ResultMap("com.lhf.dajiuye.mapper.job.JobDataMapper.jobMap")
     // 引用映射
     Job getJobById(String jobId);
@@ -100,9 +100,9 @@ public interface JobDataMapper extends BaseMapper<Job> {
      * @param state
      * @return
      */
-    @Select("select d.time jobReleaseTime,j.jobName,j.jobPlace,j.jobDayPerWeek,j.jobEdu,j.jobSalary,j.jobImg,c.comMinName,c.comIndustry " +
+    @Select("select d.time jobReleaseTime,j.job_name,j.job_place,j.job_day_per_week,j.job_edu,j.job_salary,j.job_age,c.com_min_name,c.com_industry " +
             "from user_deliver d,job j,company c,user u " +
-            "where d.job_id=j.jobId and j.jobComId=c.comId and j.job_author_id=u.id and d.from_user_id=#{userId} and d.state=#{state}")
+            "where d.job_id=j.job_id and j.job_com_id=c.com_id and j.job_author_id=u.id and d.from_user_id=#{userId} and d.state=#{state}")
     @ResultMap("com.lhf.dajiuye.mapper.job.JobDataMapper.jobMap")
     // 引用映射
     List<Job> getJobsFeedback(@Param("userId") String userId, @Param("state") int state);
@@ -113,7 +113,7 @@ public interface JobDataMapper extends BaseMapper<Job> {
      * @param params
      * @return
      */
-    @Select("Select * from job j,company c,user u where j.jobComId=c.comId and j.job_author_id=u.id and jobName like concat('%',#{query},'%') order by jobReleaseTime desc")
+    @Select("Select * from job j,company c,user u where j.job_com_id=c.com_id and j.job_author_id=u.id and job_name like concat('%',#{query},'%') order by job_release_time desc")
     @ResultMap("com.lhf.dajiuye.mapper.job.JobDataMapper.jobMap")
     // 引用映射
     List<Job> qSearch(Params params);
@@ -124,7 +124,7 @@ public interface JobDataMapper extends BaseMapper<Job> {
      * @param job
      * @return
      */
-    @Select("<script>Select * from job j,company c,user u where j.jobComId=c.comId and j.job_author_id=u.id  " +
+    @Select("<script>Select * from job j,company c,user u where j.job_com_id=c.com_id and j.job_author_id=u.id  " +
             "<if test='null!=jobType'>and jobType=#{jobType} </if>  " +
             "<if test='\"\"!=jobPlace'>and jobPlace=#{jobPlace} </if> " +
             "<if test='\"\"!=jobName'>and jobName like concat('%',#{jobName},'%')</if> limit 15</script>")
